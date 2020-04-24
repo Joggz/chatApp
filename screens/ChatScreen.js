@@ -1,7 +1,7 @@
-import React, { Component } from 'react'
+import React from 'react'
 import { Text, View, StyleSheet } from 'react-native'
 
-export default class ChatScreen extends Component {
+export default class ChatScreen extends React.Component {
   render() {
     return (
       <View style={styles.container}>
