@@ -38,10 +38,35 @@ class Fire {
       this.db.push(message)
     })
   }
-  
+
+  parse = message => {
+    const { user, text, timestamp } = message.val()
+    const { key: _id } = message,
+    const createdAt = new.Date(timestamp)
+
+    return {
+      _id,
+      createdAt,
+      text,
+      user
+    }
+  }
+
+get = callback => {
+  this.db.on('child_added', snapshot => callback(this.parse(snapshot)))
+}
+
+off(){
+  this.db.off()
+}
 
   get db() {
     return firebase.database().ref("messages")
   }
+  get vid(){
+    return (firebase.auth().currentUser || {}).vid
+  }
 
 }
+
+export default new Fire();
