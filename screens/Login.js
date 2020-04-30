@@ -1,7 +1,8 @@
 import React from 'react'
 import { View, Text, StyleSheet, TextInput, TouchableOpacity, Image } from 'react-native'
 import { Ionicons } from '@expo/vector-icons'
-
+import { useTheme } from "react-native-themed-styles"
+import  { themeStyles } from '../themes'
 export default class LoginScreen extends React.Component{
   state= {
     name: ''
@@ -10,35 +11,38 @@ export default class LoginScreen extends React.Component{
     this.props.navigation.navigate('Chat', {name: this.state})
   }
   render() {
+    const [ styles ] = useTheme(themeStyles, 'dark')
     return (
-      <View style={styles.container}> 
-        <View style={styles.circle1}/>
+      <View style={styles.container}>
+      <View style={styled.wrapper}> 
+        <View style={styled.circle1}/>
         <View style={{marginTop: 40}}>
           <Image source={require("./Images/chat1.jpg")}
             style={{width: 100, height: 100, alignSelf: 'center'}}
           />
         </View>
         <View style={{marginHorizontal: 32}}>
-          <Text style={styles.header}>
+          <Text style={styled.header}>
             Username
           </Text>
-          <TextInput style={styles.input} placeholder='Enter username'
+          <TextInput style={styled.input} placeholder='Enter username'
             onChangeText={ name => {this.setState({name})}}
             value={this.state.name}
             />
         </View>
         <View style={{alignItems: 'flex-end', marginTop: 32.5, marginEnd: 65}} >
-          <TouchableOpacity style={styles.continue} onPress={this.continue}>
+          <TouchableOpacity style={styled.continue} onPress={this.continue}>
             <Ionicons name='md-arrow-round-forward' size={25} color="#FFF" />
           </TouchableOpacity>
         </View>
+      </View>
       </View>
     )
   }
 }
 
-const styles = StyleSheet.create({
-  container: {
+const styled = StyleSheet.create({
+  wrapper: {
     flex: 1,
     backgroundColor: '#F4F5F7'
   },
